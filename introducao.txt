@@ -1,0 +1,8 @@
+O que é necessário para criar uma IA que passe no teste do tio Turing?
+- Capacidade de rapido processamento de informações;
+- Acesso a uma grande base de dados com muitas informações sobre muitos assuntos;
+- Muita memoria deixar informações em cache;
+- Mecanismo de inferência;
+- Um sistema operacional;
+- Lexico;
+- Semântico;
