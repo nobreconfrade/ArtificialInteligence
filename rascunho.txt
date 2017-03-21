@@ -21,12 +21,16 @@ Aonde 'tamcoluna' é o numero maximo de colunas na grid.
 
 Referências:http://ruby-doc.org/core-2.4.0/Hash.html
             http://www.tutorialspoint.com/ruby/ruby_hashes.htm
+
   -FORMIGAS MORTAS
 O número de formigas mortas é feito de acordo com o tamanho da grid. Quanto
 maior a grid, maior o número de formigas mortas, quanto menor, menos formigas.
-O n
+O numero de formigas mortas é 1/10 do numero maximo de espaços na matriz, este
+numero foi pensado para se dar uniformidade aos testes, independente de tamanho
+da grid. Contudo o numero pode ser alterado para testes separados.
 
-  -MULTI-THREADING 
+
+  -MULTI-THREADING
 
 Referências: http://www.restlessprogrammer.com/2013/02/multi-threading-in-jruby.html
              http://stackoverflow.com/questions/56087/does-ruby-have-real-multithreading#57802
