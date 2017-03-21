@@ -1,5 +1,5 @@
 class AntsMethods
-  def dead_ants(grid)
+  def dead_ants(grid,maxr,maxc)
 
   end
 
@@ -7,7 +7,7 @@ class AntsMethods
 
   end
 
-  def populate_grid(maxlength,maxheight)
+  def populate_grid(maxr,maxc)
     # NOTE: '0' for nothing
     # =>    '1' for live ants
     # =>    '2' for dead ants
@@ -17,15 +17,15 @@ class AntsMethods
     return grid
   end
 
-  def show_grid (grid,maxlength,maxheight)
+  def show_grid (grid,maxc,maxr)
     # NOTE: Next line clear the ubuntu terminal and them wait X seconds
     system 'clear'
     sleep(5)
-    for i in 0...maxlength do
-      for j in 0...maxheight do
+    for i in 0...maxc do
+      for j in 0...maxr do
         print "|"
-        print grid["#{i * maxlength + j}"]
-        if j == maxlength-1
+        print grid["#{i * maxc + j}"]
+        if j == maxc-1
           puts ""
         end
       end

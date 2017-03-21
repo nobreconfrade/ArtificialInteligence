@@ -2,11 +2,11 @@ require_relative "antsmethods.rb"
 
 class Ants < AntsMethods
 
-  maxlength = 30
-  maxheight = 30
+  maxc = 30
+  maxr = 30
   methods = AntsMethods.new
-  puts "|---> Max Length=#{maxlength} |---> Max Height #{maxheight}}"
-  grid = methods.populate_grid(maxlength,maxheight)
-  methods.show_grid(grid,maxlength,maxheight)
+  puts "|---> Max Length=#{maxc} |---> Max Height #{maxr}}"
+  grid = methods.populate_grid(maxc,maxr)
+  methods.show_grid(grid,maxc,maxr)
 
 end
