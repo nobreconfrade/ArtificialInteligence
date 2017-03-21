@@ -1,0 +1,5 @@
+maxlenght = 50
+linha = 10 * maxlenght
+coluna = 20
+linha + coluna
+520
