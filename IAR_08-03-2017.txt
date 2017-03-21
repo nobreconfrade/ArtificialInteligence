@@ -1,0 +1,28 @@
+             |       Medida de       |      Ambiente    |     Sensores    |        Atuadores
+             |       desempenho      |                  |                 |
+------------------------------------------------------------------------------------------
+Jogo de      |   Peças               |   Tabuleiro e    |   Perceber o    |     Um braço
+damas        |   capturadas          |   peças          |   tabuleiro     |     mecânico
+------------------------------------------------------------------------------------------
+Táxi         | Corridas efetuadas,   |Ruas, pedestres,  | GPS, sensores   |  Movimento, direção,
+Automatizado | satisfação do cliente,|semâforos, ônibus,| óticos, sensor  |  chamada do táxi, porta,
+             | faturamento,etc...    |placas, etc...    | de calor, etc...|  etc...
+------------------------------------------------------------------------------------------
+Jogo de      |   Palavras            | Papel com        | Ler as palavras,| Escrever respostas
+palavras     |   escritas            | instruções,      | ler a grade     | corrigir respostas
+cruzadas     |   corretamente        | campos e dicas   |                 |
+------------------------------------------------------------------------------------------
+Análise de   |  Precisão na análise  | Imagem           | Sensor de       | Retorna uma imagem
+imagens de   |                       |                  | captura         | classificada
+satélite     |                       |                  |                 |
+
+------------------------------------------------------------------------------------------
+Ambiente completamente observável : Consegue perceber o ambiente como o todo, de uma vez
+Ambiente parcialmente observável : Não consegue perceber o ambiente como um todo, apenas parcialmente
+
+Determinístico: Consigo prever o ambiente e.g. palavras cruzadas, análise de imagens
+Estocástico: muitos agentes atuantes e.g. Táxi automatizado
+Estratégico: Determininístico exeto pela ação de outro agente e.g. Damas
+
+Sequencial: Ações do agente mudam o desempenho do próprio agente
+Episódico: Cada ação é um episódio diferente, isolado, sem correlação entre as ações
