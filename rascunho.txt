@@ -1,0 +1,32 @@
+  -GRID
+Para a grid de formigas, inicialmente foi pensado fazer uma matriz de 50 por 50.
+A ideia inicial era simplificar este processo, porém logo foi notado que uma
+forma mais simples de realizar este trabalho em ruby 2.3 era com hash, então a
+forma de implementação da GRID passou a ser por hash, aonde a chave era composta
+dos dois valores de uma matriz, linha e coluna, na seguinte formula:
+
+      chave = i * tamlinha + j
+
+Aonde 'chave' é a chave que será usada no código para localizar a posição da
+pseudo matriz em que existe o conteudo desejado. 'i' é a posição da linha, 'j'
+é a posição da coluna e 'tamlinha' é o tamanho maximo de linhas.
+
+Uma outra opção, caso fosse feito uma grid dinâmica com mais colunas que linhas
+é criar um 'if' aonde caso o numero maximo de colunas seja maior que o numero de
+linhas, a formula de calculo é alterada para:
+
+    chave = j * tamcoluna + i
+
+Aonde 'tamcoluna' é o numero maximo de colunas na grid.
+
+Referências:http://ruby-doc.org/core-2.4.0/Hash.html
+            http://www.tutorialspoint.com/ruby/ruby_hashes.htm
+  -FORMIGAS MORTAS
+O número de formigas mortas é feito de acordo com o tamanho da grid. Quanto
+maior a grid, maior o número de formigas mortas, quanto menor, menos formigas.
+O n
+
+  -MULTI-THREADING 
+
+Referências: http://www.restlessprogrammer.com/2013/02/multi-threading-in-jruby.html
+             http://stackoverflow.com/questions/56087/does-ruby-have-real-multithreading#57802
