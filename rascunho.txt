@@ -19,6 +19,15 @@ linhas, a formula de calculo é alterada para:
 
 Aonde 'tamcoluna' é o numero maximo de colunas na grid.
 
+Para mostrar a grid, esta sendo empregada um metodo que retornava uma variavel
+grid, porém isto retornava uma copia dos valores de grid para o escopo principal
+da aplicação. Isto inferiu em um problema grave aonde a grid não estava guardando
+nenhum valor pois seu tipo não era mantido devido a este problema da variavel de
+retorno, me levou um bom tempo e a ajuda de alguns amigos para perceber que
+quando se mexia na variavel no escopo do metodo, a variavel no escopo principal
+também era alterada.
+
+
 Referências:http://ruby-doc.org/core-2.4.0/Hash.html
             http://www.tutorialspoint.com/ruby/ruby_hashes.htm
 
