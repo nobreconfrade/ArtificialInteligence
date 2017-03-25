@@ -32,11 +32,34 @@ Referências:http://ruby-doc.org/core-2.4.0/Hash.html
             http://www.tutorialspoint.com/ruby/ruby_hashes.htm
 
   -FORMIGAS MORTAS
-O número de formigas mortas é feito de acordo com o tamanho da grid. Quanto
+O número de formigas mortas foi imaginado de acordo com o tamanho da grid. Quanto
 maior a grid, maior o número de formigas mortas, quanto menor, menos formigas.
-O numero de formigas mortas é 1/10 do numero maximo de espaços na matriz, este
+O numero de formigas mortas recomendado é 1/10 do número maximo de espaços na matriz, este
 numero foi pensado para se dar uniformidade aos testes, independente de tamanho
-da grid. Contudo o numero pode ser alterado para testes separados.
+da grid. Contudo o número pode ser alterado para testes separados.
+
+
+  -FORMIGAS VIVAS
+Para as formigas vivas, o método utilizado foi basicamente o mesmo. Elas são
+colocadas na grid de forma homogênia, em espaços ainda não ocupados por formigas
+mortas. O recomendado de formigas vivas é 1/100 espaços na grid, porém este
+valor pode ser alterado por meio de uma variável.
+
+Foi adicionado um classe 'ants' onde cada objeto desta classe irá guardar
+informações da formiga como posição atual e carregando ou não um objeto. A ideia
+é facilitar na hora de mexer com a formiga, mas neste momento eu estou tendo
+alguns problemas com a criação de instancias para a classe. Culpa de uma base
+fraca em Programação Orientada a Objetos.
+
+  -INTERAÇÕES
+
+
+  -MOVIMENTO
+Para o movimento das formigas vivas dentro da grid, deve ser levado em
+consideração que a grid é feita em hash, isto influencia na hora de mover a
+formiga pois não existe uma barreira de posição no vetor para parar a formiga
+que estiver na borda da grid, seguindo uma metodologia normal, uma formiga na
+borda com hash 
 
 
   -MULTI-THREADING
