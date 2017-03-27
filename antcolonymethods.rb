@@ -13,9 +13,9 @@ class AntColonyMethods
     end
   end
 
-  while (count != aliveants)
   def alive_ants(grid,maxr,maxc,aliveants,ants)
     count = 0
+    while (count != aliveants)
       r = rand(0...maxr)
       c = rand(0...maxc)
       key = r * maxr + c
