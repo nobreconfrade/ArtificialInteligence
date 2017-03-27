@@ -55,4 +55,13 @@ class AntColonyMethods
     puts "|---> Max Length=#{maxc} |---> Max Height #{maxr}}"
     sleep(2)
   end
+
+  def capture_ants
+
+  end
+
+  def walk_ants
+    
+  end
+
 end
