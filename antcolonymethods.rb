@@ -1,3 +1,4 @@
+require_relative "ant.rb"
 class AntColonyMethods
   def dead_ants(grid,maxr,maxc,deadants)
     count = 0
@@ -12,25 +13,28 @@ class AntColonyMethods
     end
   end
 
-  def alive_ants(grid,maxr,maxc,aliveants)
+  while (count != aliveants)
+  def alive_ants(grid,maxr,maxc,aliveants,ants)
     count = 0
-    while (count != aliveants)
-      key = rand(0...maxr) * maxr + rand(0...maxc)
+      r = rand(0...maxr)
+      c = rand(0...maxc)
+      key = r * maxr + c
       if grid[key] == "*" or grid[key] == "o"
         next
       else
         grid[key] = "o"
+        ants.push Ant.new(r,c,0)
       end
       count += 1
     end
   end
 
-  def populate_grid(grid,maxr,maxc,deadants,aliveants)
+  def populate_grid(grid,maxr,maxc,deadants,aliveants,ants)
     # NOTE: ' ' for nothing
     # =>    'o' for alive ants
     # =>    '*' for dead ants
     dead_ants(grid,maxr,maxc,deadants)
-    alive_ants(grid,maxr,maxc,aliveants)
+    alive_ants(grid,maxr,maxc,aliveants,ants)
   end
 
   def show_grid (grid,maxr,maxc)
