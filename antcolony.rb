@@ -26,20 +26,29 @@ class AntColony < AntColonyMethods
   if gets == "y"
     while count != interactions
       methods.show_grid(grid,maxr,maxc)
+      #NOTE: logic of ants
+      ants.each do |ant|
+        if ant.ant_working == 1
+          if grid[ant.ant_row * maxr + ant.ant_col]
 
+          end
+        else
+
+        end
+      end
       count += 1
     end
   else
     # NOTE: This environment show the inicial board and the result.
     # NOTE: How to interact in the ants object.
-    # ants.each do |ant|
-    #   puts ant.to_s
-    # end
-    methods.show_grid(grid,maxr,maxc)
-    while count != interactions
-
-      count += 1
+    ants.each do |ant|
+      puts ant.to_s
     end
-    methods.show_grid(grid,maxr,maxc)
+    # methods.show_grid(grid,maxr,maxc)
+    # while count != interactions
+    #
+    #   count += 1
+    # end
+    # methods.show_grid(grid,maxr,maxc)
   end
 end
