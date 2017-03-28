@@ -221,15 +221,15 @@ class AntColonyMethods
   def capture_ants(grid,lineofsight,ant,maxr,maxc)
     cell_count = 0
     dead_count = 0
-    for r in 0...lineofsight+1 do
-      for c in 0...lineofsight+1 do
+    for r in 0..lineofsight*2 do
+      for c in 0..lineofsight*2 do
         if r == lineofsight and c == lineofsight
           #NOTE: if its here, don't count the ant itself
           next
         end
         i = ant.ant_row + r - lineofsight
         j = ant.ant_col + c - lineofsight
-        if i >= 0 and j >= 0 and i < maxr and j < maxc
+        if (i >= 0 and j >= 0) and (i < maxr and j < maxc)
           cell_count += 1
           if grid[i * maxr + j] == "*" or grid[i * maxr + j] == "@"
             dead_count += 1
@@ -244,7 +244,32 @@ class AntColonyMethods
   end
 
   def release_ants(grid,lineofsight,ant,maxr,maxc)
-
+    cell_count = 0
+    dead_count = 0
+    for r in 0..lineofsight*2 do
+      for c in 0..lineofsight*2 do
+        if r == lineofsight and c == lineofsight
+          #NOTE: if its here, don't count the ant itself
+          next
+        end
+        i = ant.ant_row + r - lineofsight
+        j = ant.ant_col + c - lineofsight
+        if (i >= 0 and j >= 0) and (i < maxr and j < maxc)
+          cell_count += 1
+          if grid[i * maxr + j] == "*" or grid[i * maxr + j] == "@"
+            dead_count += 1
+          end
+        end
+      end
+    end
+    prob = rand(0.01...1.00)
+    if prob-0.2 < dead_count/cell_count
+      ant.ant_working = 0
+      # NOTE: for test purposes
+      File.open('log.txt','a') do |s|
+        s.puts "largou"
+      end
+    end
   end
 
 end
