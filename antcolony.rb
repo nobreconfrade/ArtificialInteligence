@@ -9,6 +9,7 @@ class AntColony < AntColonyMethods
   grid = Hash.new(" ")
   ants = Array.new
   count = 0
+  lineofsight = 1
 
   puts "Select the number of columns:"
   maxc = gets.to_i
@@ -22,6 +23,9 @@ class AntColony < AntColonyMethods
   puts "Chose the number of interactions you want:"
   interactions = gets.to_i
   methods.populate_grid(grid,maxr,maxc,deadants,aliveants,ants)
+  # puts "The line of sight is the range that the ant can see and take an action over it."
+  # puts "Chose a line of sight:"
+  # lineofsight = gets.to_i
   puts "Show all interactions? (1 or 0)"
   show = gets.to_i
   if show == 1
@@ -30,11 +34,11 @@ class AntColony < AntColonyMethods
       #NOTE: logic of ants
       ants.each do |ant|
         if ant.ant_working == 1
-          methods.release_ants()
+          methods.release_ants(grid,lineofsight,ant,maxr,maxc)
           methods.walk_ants(ant,maxr,maxc,grid)
         else
           if grid[ant.ant_row * maxr + ant.ant_col] == "@"
-            methods.capture_ants()
+            methods.capture_ants(grid,lineofsight,ant,maxr,maxc)
             methods.walk_ants(ant,maxr,maxc,grid)
           else
             methods.walk_ants(ant,maxr,maxc,grid)
