@@ -47,9 +47,8 @@ valor pode ser alterado por meio de uma variável.
 
 Foi adicionado um classe 'ants' onde cada objeto desta classe irá guardar
 informações da formiga como posição atual e carregando ou não um objeto. A ideia
-é facilitar na hora de mexer com a formiga, mas neste momento eu estou tendo
-alguns problemas com a criação de instancias para a classe. Culpa de uma base
-fraca em Programação Orientada a Objetos.
+é facilitar na hora de mexer com a formiga, facilitando a manipulação das
+formigas vivas.
 
   -INTERAÇÕES
 
@@ -59,7 +58,7 @@ Para o movimento das formigas vivas dentro da grid, deve ser levado em
 consideração que a grid é feita em hash, isto influencia na hora de mover a
 formiga pois não existe uma barreira de posição no vetor para parar a formiga
 que estiver na borda da grid, seguindo uma metodologia normal, uma formiga na
-borda com hash 
+borda com hash
 
 
   -MULTI-THREADING
