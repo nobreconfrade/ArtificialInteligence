@@ -68,11 +68,11 @@ class AntColonyMethods
 
         if ant.ant_row == 0
           ant.ant_direction = rand(1..3)
-          walk_ants(ant,maxr,maxc,grid)
+
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "*" and ant.ant_working == 1)
             ant.ant_direction = rand(1..3)
-            walk_ants(ant,maxr,maxc,grid)
+
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
               if grid[ant.ant_row * maxr + ant.ant_col - maxr] == " "
@@ -105,11 +105,11 @@ class AntColonyMethods
 
         if ant.ant_col == maxc - 1
           ant.ant_direction = rand(0..3)
-          walk_ants(ant,maxr,maxc,grid)
+
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col + 1] == "o") or (grid[ant.ant_row * maxr + ant.ant_col + 1] == "@") or (grid[ant.ant_row * maxr + ant.ant_col + 1] == "*" and ant.ant_working == 1)
             ant.ant_direction = rand(1..3)
-            walk_ants(ant,maxr,maxc,grid)
+
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
               if grid[ant.ant_row * maxr + ant.ant_col + 1] == " "
@@ -142,11 +142,11 @@ class AntColonyMethods
 
         if ant.ant_row == maxr - 1
           ant.ant_direction = rand(1..3)
-          walk_ants(ant,maxr,maxc,grid)
+
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "*" and ant.ant_working == 1)
             ant.ant_direction = rand(1..3)
-            walk_ants(ant,maxr,maxc,grid)
+
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
               if grid[ant.ant_row * maxr + ant.ant_col + maxr] == " "
@@ -179,11 +179,10 @@ class AntColonyMethods
 
         if ant.ant_col == 0
           ant.ant_direction = rand(0..2)
-          walk_ants(ant,maxr,maxc,grid)
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col - 1] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - 1] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - 1] == "*" and ant.ant_working == 1)
             ant.ant_direction = rand(1..3)
-            walk_ants(ant,maxr,maxc,grid)
+
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
               if grid[ant.ant_row * maxr + ant.ant_col - 1] == " "
@@ -216,16 +215,35 @@ class AntColonyMethods
     else
       ant.ant_direction = rand(0..3)
       ant.ant_steps = rand(1..10)
-      walk_ants(ant,maxr,maxc,grid)
     end
   end
 
-  def capture_ants
-
+  def capture_ants(grid,lineofsight,ant,maxr,maxc)
+    cell_count = 0
+    dead_count = 0
+    for r in 0...lineofsight+1 do
+      for c in 0...lineofsight+1 do
+        if r == lineofsight and c == lineofsight
+          #NOTE: if its here, don't count the ant itself
+          next
+        end
+        i = ant.ant_row + r - lineofsight
+        j = ant.ant_col + c - lineofsight
+        if i >= 0 and j >= 0 and i < maxr and j < maxc
+          cell_count += 1
+          if grid[i * maxr + j] == "*" or grid[i * maxr + j] == "@"
+            dead_count += 1
+          end
+        end
+      end
+    end
+    prob = rand(0.01...1.00)
+    if prob > dead_count/cell_count
+      ant.ant_working = 1
+    end
   end
 
-
-  def release_ants
+  def release_ants(grid,lineofsight,ant,maxr,maxc)
 
   end
 
