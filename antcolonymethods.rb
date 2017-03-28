@@ -37,7 +37,7 @@ class AntColonyMethods
     alive_ants(grid,maxr,maxc,aliveants,ants)
   end
 
-  def show_grid (grid,maxr,maxc)
+  def show_grid (grid,maxr,maxc,count)
     # NOTE: Next line clear the ubuntu terminal and them wait X seconds
     system 'clear'
     # print grid.keys
@@ -53,15 +53,75 @@ class AntColonyMethods
       end
     end
     puts "|---> Max Length=#{maxc} |---> Max Height #{maxr}}"
-    sleep(2)
+    puts " Interaction: #{count+1}"
+    sleep(1)
+  end
+
+  def walk_ants(ant,maxr,maxc,grid)
+    # NOTE: 0 == N
+    # =>    1 == E
+    # =>    2 == S
+    # =>    3 == W
+    if ant.ant_steps != 0
+
+      if ant.ant_direction == 0
+
+        if ant.ant_row * maxr + ant.ant_col - maxr < 0
+          ant.ant_direction = rand(1..3)
+          walk_ants(ant,maxr,maxc,grid)
+        else
+          if (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "*" and ant.ant_working == 1)
+            ant.ant_direction = rand(1..3)
+            walk_ants(ant,maxr,maxc,grid)
+          else #next pos is a valid position
+            if grid[ant.ant_row * maxr + ant.ant_col] == "o"
+              if grid[ant.ant_row * maxr + ant.ant_col - maxr] == " "
+                grid[ant.ant_row * maxr + ant.ant_col - maxr] = "o"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else # next pos == "*"
+                grid[ant.ant_row * maxr + ant.ant_col - maxr] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              end
+            else # ant over a dead ant
+              if ant.ant_working == 1
+                grid[ant.ant_row * maxr + ant.ant_col - maxr] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else #not working
+                if grid[ant.ant_row * maxr + ant.ant_col - maxr] == " "
+                  grid[ant.ant_row * maxr + ant.ant_col - maxr] = "o"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                else #not working and next position is a "*"
+                  grid[ant.ant_row * maxr + ant.ant_col - maxr] = "@"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                end
+              end
+            end
+            ant.ant_row -= 1
+            ant.ant_steps -= 1
+          end
+        end
+
+      elsif ant.ant_direction == 1
+
+      elsif ant.ant_direction == 2
+
+      elsif ant.ant_direction == 3
+
+      end
+    else
+      ant.ant_direction = rand(0..3)
+      ant.ant_steps = rand(1..10)
+      walk_ants(ant,maxr,maxc,grid)
+    end
   end
 
   def capture_ants
 
   end
 
-  def walk_ants
-    
+
+  def release_ants
+
   end
 
 end
