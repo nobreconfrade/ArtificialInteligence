@@ -54,7 +54,7 @@ class AntColonyMethods
     end
     puts "|---> Max Length=#{maxc} |---> Max Height #{maxr}}"
     puts " Interaction: #{count+1}"
-    sleep(0.5)
+    sleep(0.1)
   end
 
   def walk_ants(ant,maxr,maxc,grid)
@@ -67,11 +67,11 @@ class AntColonyMethods
       if ant.ant_direction == 0
 
         if ant.ant_row == 0
-          ant.ant_direction = rand(1..3)
+          ant.ant_direction = rand(0..3)
 
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "*" and ant.ant_working == 1)
-            ant.ant_direction = rand(1..3)
+            ant.ant_direction = rand(0..3)
 
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
@@ -108,7 +108,7 @@ class AntColonyMethods
 
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col + 1] == "o") or (grid[ant.ant_row * maxr + ant.ant_col + 1] == "@") or (grid[ant.ant_row * maxr + ant.ant_col + 1] == "*" and ant.ant_working == 1)
-            ant.ant_direction = rand(1..3)
+            ant.ant_direction = rand(0..3)
 
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
@@ -141,11 +141,11 @@ class AntColonyMethods
       elsif ant.ant_direction == 2
 
         if ant.ant_row == maxr - 1
-          ant.ant_direction = rand(1..3)
+          ant.ant_direction = rand(0..3)
 
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "*" and ant.ant_working == 1)
-            ant.ant_direction = rand(1..3)
+            ant.ant_direction = rand(0..3)
 
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
@@ -178,10 +178,10 @@ class AntColonyMethods
       elsif ant.ant_direction == 3
 
         if ant.ant_col == 0
-          ant.ant_direction = rand(0..2)
+          ant.ant_direction = rand(0..3)
         else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col - 1] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - 1] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - 1] == "*" and ant.ant_working == 1)
-            ant.ant_direction = rand(1..3)
+            ant.ant_direction = rand(0..3)
 
           else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
@@ -263,7 +263,7 @@ class AntColonyMethods
       end
     end
     prob = rand(0.01...1.00)
-    if prob-0.2 < dead_count/cell_count
+    if prob < dead_count/cell_count
       ant.ant_working = 0
       # NOTE: for test purposes
       File.open('log.txt','a') do |s|
