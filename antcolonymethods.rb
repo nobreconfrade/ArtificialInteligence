@@ -219,8 +219,8 @@ class AntColonyMethods
   end
 
   def capture_ants(grid,lineofsight,ant,maxr,maxc)
-    cell_count = 0
-    dead_count = 0
+    cell_count = 0.0
+    dead_count = 0.0
     for r in 0..lineofsight*2 do
       for c in 0..lineofsight*2 do
         if r == lineofsight and c == lineofsight
@@ -244,8 +244,8 @@ class AntColonyMethods
   end
 
   def release_ants(grid,lineofsight,ant,maxr,maxc)
-    cell_count = 0
-    dead_count = 0
+    cell_count = 0.0
+    dead_count = 0.0
     for r in 0..lineofsight*2 do
       for c in 0..lineofsight*2 do
         if r == lineofsight and c == lineofsight
