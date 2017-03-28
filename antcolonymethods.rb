@@ -54,7 +54,7 @@ class AntColonyMethods
     end
     puts "|---> Max Length=#{maxc} |---> Max Height #{maxr}}"
     puts " Interaction: #{count+1}"
-    sleep(1)
+    sleep(0.5)
   end
 
   def walk_ants(ant,maxr,maxc,grid)
@@ -66,14 +66,14 @@ class AntColonyMethods
 
       if ant.ant_direction == 0
 
-        if ant.ant_row * maxr + ant.ant_col - maxr < 0
+        if ant.ant_row == 0
           ant.ant_direction = rand(1..3)
           walk_ants(ant,maxr,maxc,grid)
-        else
+        else #its a valid position
           if (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - maxr] == "*" and ant.ant_working == 1)
             ant.ant_direction = rand(1..3)
             walk_ants(ant,maxr,maxc,grid)
-          else #next pos is a valid position
+          else #next pos has nothing wrong on it
             if grid[ant.ant_row * maxr + ant.ant_col] == "o"
               if grid[ant.ant_row * maxr + ant.ant_col - maxr] == " "
                 grid[ant.ant_row * maxr + ant.ant_col - maxr] = "o"
@@ -103,9 +103,114 @@ class AntColonyMethods
 
       elsif ant.ant_direction == 1
 
+        if ant.ant_col == maxc - 1
+          ant.ant_direction = rand(0..3)
+          walk_ants(ant,maxr,maxc,grid)
+        else #its a valid position
+          if (grid[ant.ant_row * maxr + ant.ant_col + 1] == "o") or (grid[ant.ant_row * maxr + ant.ant_col + 1] == "@") or (grid[ant.ant_row * maxr + ant.ant_col + 1] == "*" and ant.ant_working == 1)
+            ant.ant_direction = rand(1..3)
+            walk_ants(ant,maxr,maxc,grid)
+          else #next pos has nothing wrong on it
+            if grid[ant.ant_row * maxr + ant.ant_col] == "o"
+              if grid[ant.ant_row * maxr + ant.ant_col + 1] == " "
+                grid[ant.ant_row * maxr + ant.ant_col + 1] = "o"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else # next pos == "*"
+                grid[ant.ant_row * maxr + ant.ant_col + 1] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              end
+            else # ant over a dead ant
+              if ant.ant_working == 1
+                grid[ant.ant_row * maxr + ant.ant_col + 1] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else #not working
+                if grid[ant.ant_row * maxr + ant.ant_col + 1] == " "
+                  grid[ant.ant_row * maxr + ant.ant_col + 1] = "o"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                else #not working and next position is a "*"
+                  grid[ant.ant_row * maxr + ant.ant_col + 1] = "@"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                end
+              end
+            end
+            ant.ant_col += 1
+            ant.ant_steps -= 1
+          end
+        end
+
       elsif ant.ant_direction == 2
 
+        if ant.ant_row == maxr - 1
+          ant.ant_direction = rand(1..3)
+          walk_ants(ant,maxr,maxc,grid)
+        else #its a valid position
+          if (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "o") or (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "@") or (grid[ant.ant_row * maxr + ant.ant_col + maxr] == "*" and ant.ant_working == 1)
+            ant.ant_direction = rand(1..3)
+            walk_ants(ant,maxr,maxc,grid)
+          else #next pos has nothing wrong on it
+            if grid[ant.ant_row * maxr + ant.ant_col] == "o"
+              if grid[ant.ant_row * maxr + ant.ant_col + maxr] == " "
+                grid[ant.ant_row * maxr + ant.ant_col + maxr] = "o"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else # next pos == "*"
+                grid[ant.ant_row * maxr + ant.ant_col + maxr] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              end
+            else # ant over a dead ant
+              if ant.ant_working == 1
+                grid[ant.ant_row * maxr + ant.ant_col + maxr] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else #not working
+                if grid[ant.ant_row * maxr + ant.ant_col + maxr] == " "
+                  grid[ant.ant_row * maxr + ant.ant_col + maxr] = "o"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                else #not working and next position is a "*"
+                  grid[ant.ant_row * maxr + ant.ant_col + maxr] = "@"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                end
+              end
+            end
+            ant.ant_row += 1
+            ant.ant_steps -= 1
+          end
+        end
+
       elsif ant.ant_direction == 3
+
+        if ant.ant_col == 0
+          ant.ant_direction = rand(0..2)
+          walk_ants(ant,maxr,maxc,grid)
+        else #its a valid position
+          if (grid[ant.ant_row * maxr + ant.ant_col - 1] == "o") or (grid[ant.ant_row * maxr + ant.ant_col - 1] == "@") or (grid[ant.ant_row * maxr + ant.ant_col - 1] == "*" and ant.ant_working == 1)
+            ant.ant_direction = rand(1..3)
+            walk_ants(ant,maxr,maxc,grid)
+          else #next pos has nothing wrong on it
+            if grid[ant.ant_row * maxr + ant.ant_col] == "o"
+              if grid[ant.ant_row * maxr + ant.ant_col - 1] == " "
+                grid[ant.ant_row * maxr + ant.ant_col - 1] = "o"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else # next pos == "*"
+                grid[ant.ant_row * maxr + ant.ant_col - 1] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              end
+            else # ant over a dead ant
+              if ant.ant_working == 1
+                grid[ant.ant_row * maxr + ant.ant_col - 1] = "@"
+                grid[ant.ant_row * maxr + ant.ant_col] = " "
+              else #not working
+                if grid[ant.ant_row * maxr + ant.ant_col - 1] == " "
+                  grid[ant.ant_row * maxr + ant.ant_col - 1] = "o"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                else #not working and next position is a "*"
+                  grid[ant.ant_row * maxr + ant.ant_col - 1] = "@"
+                  grid[ant.ant_row * maxr + ant.ant_col] = "*"
+                end
+              end
+            end
+            ant.ant_col -= 1
+            ant.ant_steps -= 1
+          end
+        end
 
       end
     else
