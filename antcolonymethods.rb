@@ -266,9 +266,9 @@ class AntColonyMethods
     if prob < dead_count/cell_count
       ant.ant_working = 0
       # NOTE: for test purposes
-      File.open('log.txt','a') do |s|
-        s.puts "largou"
-      end
+      # File.open('log.txt','a') do |s|
+      #   s.puts "largou"
+      # end
     end
   end
 
