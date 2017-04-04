@@ -23,13 +23,13 @@ class AntColony < AntColonyMethods
   File.open('input.txt','r') do |f|
     f.each_line do |line|
       content  = line.split(/)
-      infos.push Info.new(content[0],content[1],content[2]) 
+      infos.push Info.new(content[0],content[1],content[2])
     end
   end
 
 
-  grid = Grid.new(maxr, maxc, interactions, info, ants})
-  methods.populate_grid(grid,maxr,maxc,deadants,aliveants,ants)
+  grid = Grid.new(maxr, maxc, interactions, aliveants})
+  methods.populate_grid(grid,infos)
 
   if show == 1
     while count != interactions

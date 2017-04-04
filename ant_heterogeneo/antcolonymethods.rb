@@ -1,15 +1,13 @@
 require_relative "ant.rb"
 class AntColonyMethods
-  def dead_ants(grid,maxr,maxc,deadants)
-    count = 0
-    while (count != deadants)
-      key = rand(0...maxr) * maxr + rand(0...maxc)
-      if grid[key] == "*"
+  def dead_ants(grid,infos)
+    infos.each do |f|
+      key = rand(0...grid.grid_maxr) * grid.grid_maxr + rand(0...grid.grid_maxc)
+      if grid.grid_field[key] == "*"
         next
       else
-        grid[key] = "*"
+        grid.grid_field[key] = "*"
       end
-      count += 1
     end
   end
 
@@ -29,12 +27,12 @@ class AntColonyMethods
     end
   end
 
-  def populate_grid(grid,maxr,maxc,deadants,aliveants,ants)
+  def populate_grid(grid,ants)
     # NOTE: ' ' for nothing
     # =>    'o' for alive ants
     # =>    '*' for dead ants
-    dead_ants(grid,maxr,maxc,deadants)
-    alive_ants(grid,maxr,maxc,aliveants,ants)
+    dead_ants(grid,infos)
+    alive_ants(grid)
   end
 
   def show_grid (grid,maxr,maxc,count)
