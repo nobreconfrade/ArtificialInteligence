@@ -15,21 +15,26 @@ class AntColony < AntColonyMethods
   # NOTE: Fixed tests
   maxc = 40
   maxr = 40
-  aliveants = 10
+  aliveants = 20
   interactions = 10000
   lineofsight = 1
   show = 0
 
   File.open('input.txt','r') do |f|
     f.each_line do |line|
-      content  = line.split(/)
+      content  = line.split("/")
       infos.push Info.new(content[0],content[1],content[2])
     end
   end
 
 
-  grid = Grid.new(maxr, maxc, interactions, aliveants})
-  methods.populate_grid(grid,infos)
+  grid = Grid.new(maxr, maxc, interactions, aliveants)
+  methods.populate_grid(grid,infos,aliveants,ants)
+  # FIXME: only testing first party
+  methods.show_grid(grid,count)
+  # ants.each do |g|
+  #   print g.to_s
+  # end
 
   if show == 1
     while count != interactions
@@ -56,10 +61,12 @@ class AntColony < AntColonyMethods
     # ants.each do |ant|
     #   puts ant.to_s
     # end
-    methods.show_grid(grid,maxr,maxc,count)
+    methods.show_grid(grid,count)
     while count != interactions
       ants.each do |ant|
-        if ant.ant_working == 1
+        # TODO: I expect this to work, if this doesn't work try making two 'if'.
+        # => The first one check if is '!=' from " " and the sencond if is busy or not.
+        if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy == "1"
           methods.release_ants(grid,lineofsight,ant,maxr,maxc)
           methods.walk_ants(ant,maxr,maxc,grid)
         else
@@ -74,6 +81,6 @@ class AntColony < AntColonyMethods
       count += 1
       # puts " Interaction: #{count}"
     end
-    methods.show_grid(grid,maxr,maxc,count-1)
+    methods.show_grid(grid,count-1)
   end
 end

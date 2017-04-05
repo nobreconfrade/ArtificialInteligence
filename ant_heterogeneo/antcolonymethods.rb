@@ -1,61 +1,65 @@
 require_relative "ant.rb"
 class AntColonyMethods
   def dead_ants(grid,infos)
-    infos.each do |f|
-      key = rand(0...grid.grid_maxr) * grid.grid_maxr + rand(0...grid.grid_maxc)
-      if grid.grid_field[key] == "*"
+    infos.each do |l|
+        r = rand(0...grid.grid_maxr)
+        c = rand(0...grid.grid_maxc)
+        key = r * grid.grid_maxr + c
+      if grid.grid_field[key] != " "
         next
       else
-        grid.grid_field[key] = "*"
+        l.info_row = r
+        l.info_col = c
+        grid.grid_field[key] = l
       end
     end
   end
 
-  def alive_ants(grid,maxr,maxc,aliveants,ants)
+  def alive_ants(grid,aliveants,ants)
     count = 0
     while (count != aliveants)
-      r = rand(0...maxr)
-      c = rand(0...maxc)
-      key = r * maxr + c
-      if grid[key] == "*" or grid[key] == "o"
+      r = rand(0...grid.grid_maxr)
+      c = rand(0...grid.grid_maxc)
+      key = r * grid.grid_maxr + c
+      if grid.grid_field[key] != " "
         next
       else
-        grid[key] = "o"
         ants.push Ant.new(r,c,0)
       end
       count += 1
     end
   end
 
-  def populate_grid(grid,ants)
-    # NOTE: ' ' for nothing
-    # =>    'o' for alive ants
-    # =>    '*' for dead ants
+  def populate_grid(grid,infos,aliveants,ants)
     dead_ants(grid,infos)
-    alive_ants(grid)
+    alive_ants(grid,aliveants,ants)
   end
 
-  def show_grid (grid,maxr,maxc,count)
+  def show_grid (grid,count)
     # NOTE: Next line clear the ubuntu terminal and them wait X seconds
     system 'clear'
     # print grid.keys
-    for r in 0...maxr do
+    for r in 0...grid.grid_maxr do
       print "|"
-      for c in 0...maxc do
-        key = r * maxr + c
-        print grid[key]
+      for c in 0...grid.grid_maxc do
+        key = r * grid.grid_maxr + c
+        if grid.grid_field[key] != " "
+          print grid.grid_field[key].info_color
+        else
+          print " "
+        end
         print "|"
-        if c == maxc-1
+        if c == grid.grid_maxc-1
           print "\n"
         end
       end
     end
-    puts "|---> Max Length=#{maxc} |---> Max Height #{maxr}}"
+    puts "|---> Max Length=#{grid.grid_maxc} |---> Max Height #{grid.grid_maxr}}"
     puts " Interaction: #{count+1}"
     sleep(0.1)
   end
 
-  def walk_ants(ant,maxr,maxc,grid)
+  def walk_ants()
     # NOTE: 0 == N
     # =>    1 == E
     # =>    2 == S
