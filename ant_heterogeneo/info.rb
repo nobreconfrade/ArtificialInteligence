@@ -5,6 +5,7 @@ class Info
     @info_value1 = value1
     @info_value2 = value2
     @info_color = color.chomp("\n")
+    @info_color = "%x" % @info_color
     @info_busy = 0
     @info_row = 0
     @info_col = 0
