@@ -76,9 +76,9 @@ class AntColonyMethods
         end
       end
 
-      elsif ant.ant_direction == 1
+      if ant.ant_direction == 1
 
-        if ant.ant_col == maxc - 1
+        if ant.ant_col == grid.grid_maxc - 1
           ant.ant_direction = rand(0..3)
         else #its a valid position
           ant.ant_col += 1
@@ -86,17 +86,17 @@ class AntColonyMethods
         end
       end
 
-      elsif ant.ant_direction == 2
+      if ant.ant_direction == 2
 
-        if ant.ant_row == maxr - 1
-          ant.ant_direction = rand(0..3
+        if ant.ant_row == grid.grid_maxr - 1
+          ant.ant_direction = rand(0..3)
         else #its a valid position
             ant.ant_row += 1
             ant.ant_steps -= 1
         end
       end
 
-      elsif ant.ant_direction == 3
+      if ant.ant_direction == 3
 
         if ant.ant_col == 0
           ant.ant_direction = rand(0..3)
@@ -112,7 +112,7 @@ class AntColonyMethods
     end
   end
 
-  def capture_ants(grid,lineofsight,ant,maxr,maxc)
+  def capture_ants(grid,lineofsight,ant)
     cell_count = 0.0
     dead_count = 0.0
     for r in 0..lineofsight*2 do
@@ -123,21 +123,21 @@ class AntColonyMethods
         end
         i = ant.ant_row + r - lineofsight
         j = ant.ant_col + c - lineofsight
-        if (i >= 0 and j >= 0) and (i < maxr and j < maxc)
+        if (i >= 0 and j >= 0) and (i < grid.grid_maxr and j < grid.grid_maxc)
           cell_count += 1
-          if grid[i * maxr + j] == "*" or grid[i * maxr + j] == "@"
-            dead_count += 1
+          if grid.grid_field[i * grid.grid_maxr + j] != " "
+            dead_count += 1 if grid.grid_field[i * grid.grid_maxr + j].info_color == grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_color
           end
         end
       end
     end
     prob = rand(0.01...1.00)
     if prob > dead_count/cell_count
-      ant.ant_working = 1
+      grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy = 1
     end
   end
 
-  def release_ants(grid,lineofsight,ant,maxr,maxc)
+  def release_ants(grid,lineofsight,ant)
     cell_count = 0.0
     dead_count = 0.0
     for r in 0..lineofsight*2 do
@@ -148,17 +148,17 @@ class AntColonyMethods
         end
         i = ant.ant_row + r - lineofsight
         j = ant.ant_col + c - lineofsight
-        if (i >= 0 and j >= 0) and (i < maxr and j < maxc)
+        if (i >= 0 and j >= 0) and (i < grid.grid_maxr and j < grid.grid_maxc)
           cell_count += 1
-          if grid[i * maxr + j] == "*" or grid[i * maxr + j] == "@"
-            dead_count += 1
+          if grid.grid_field[i * grid.grid_maxr + j] != " "
+            dead_count += 1 if grid.grid_field[i * grid.grid_maxr + j].info_color == grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_color
           end
         end
       end
     end
     prob = rand(0.01...1.00)
     if prob < dead_count/cell_count
-      ant.ant_working = 0
+      grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy = 0
       # NOTE: for test purposes
       # File.open('log.txt','a') do |s|
       #   s.puts "largou"

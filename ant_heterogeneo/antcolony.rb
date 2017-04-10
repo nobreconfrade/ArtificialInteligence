@@ -31,26 +31,26 @@ class AntColony < AntColonyMethods
   grid = Grid.new(maxr, maxc, interactions, aliveants)
   methods.populate_grid(grid,infos,aliveants,ants)
   # FIXME: only testing first party
-  methods.show_grid(grid,count)
+  # methods.show_grid(grid,count)
   # infos.each do |g|
   #   print g.to_s
   # end
 
   if show == 1
     while count != interactions
-      methods.show_grid(grid,maxr,maxc,count)
+      methods.show_grid(grid,count)
       #NOTE: logic of ants
       ants.each do |ant|
-        if ant.ant_working == 1
-          methods.release_ants(grid,lineofsight,ant,maxr,maxc)
-          methods.walk_ants(ant,maxr,maxc,grid)
-        else
-          if grid[ant.ant_row * maxr + ant.ant_col] == "@"
-            methods.capture_ants(grid,lineofsight,ant,maxr,maxc)
-            methods.walk_ants(ant,maxr,maxc,grid)
+        if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col] != " "
+          if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy == 0
+            methods.capture_ants(grid,lineofsight,ant)
+            methods.walk_ants(ant,grid)
           else
-            methods.walk_ants(ant,maxr,maxc,grid)
+            methods.release_ants(grid,lineofsight,ant)
+            methods.walk_ants(ant,grid)
           end
+        else
+          methods.walk_ants(ant,grid)
         end
       end
       count += 1
@@ -68,10 +68,10 @@ class AntColony < AntColonyMethods
         # => The first one check if is '!=' from " " and the sencond if is busy or not.
         if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col] != " "
           if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy == 0
-            methods.capture_ants(grid,lineofsight,ant,maxr,maxc)
+            methods.capture_ants(grid,lineofsight,ant)
             methods.walk_ants(ant,grid)
           else
-            methods.release_ants(grid,lineofsight,ant,maxr,maxc)
+            methods.release_ants(grid,lineofsight,ant)
             methods.walk_ants(ant,grid)
           end
         else
