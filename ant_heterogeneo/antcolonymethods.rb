@@ -17,6 +17,7 @@ class AntColonyMethods
 
   def alive_ants(grid,aliveants,ants)
     count = 0
+    aliveants=5
     while (count != aliveants)
       r = rand(0...grid.grid_maxr)
       c = rand(0...grid.grid_maxc)
@@ -112,28 +113,35 @@ class AntColonyMethods
     end
   end
 
-  def capture_ants(grid,lineofsight,ant)
+  def capture_ants(grid,lineofsight,ant,count,interactions)
     cell_count = 0.0
     dead_count = 0.0
-    for r in 0..lineofsight*2 do
-      for c in 0..lineofsight*2 do
-        if r == lineofsight and c == lineofsight
-          #NOTE: if its here, don't count the ant itself
-          next
-        end
-        i = ant.ant_row + r - lineofsight
-        j = ant.ant_col + c - lineofsight
-        if (i >= 0 and j >= 0) and (i < grid.grid_maxr and j < grid.grid_maxc)
-          cell_count += 1
-          if grid.grid_field[i * grid.grid_maxr + j] != " "
-            dead_count += 1 if grid.grid_field[i * grid.grid_maxr + j].info_color == grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_color
+    unless !ant.ant_info.nil?
+      for r in 0..lineofsight*2 do
+        for c in 0..lineofsight*2 do
+          if r == lineofsight and c == lineofsight
+            #NOTE: if its here, don't count the ant itself
+            next
+          end
+          i = ant.ant_row + r - lineofsight
+          j = ant.ant_col + c - lineofsight
+          if (i >= 0 and j >= 0) and (i < grid.grid_maxr and j < grid.grid_maxc)
+            cell_count += 1
+            if grid.grid_field[i * grid.grid_maxr + j] != " "
+              dead_count += 1 if grid.grid_field[i * grid.grid_maxr + j].info_color == grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_color
+            end
           end
         end
       end
-    end
-    prob = rand(0.01...1.00)
-    if prob > dead_count/cell_count
-      grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy = 1
+      prob = rand(0.01...1.00)
+      if prob > dead_count/cell_count
+        grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy = 1
+        ant.ant_info = grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col]
+        grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col] = " "
+        # File.open('log.txt','a') do |s|
+        #   s.puts "pegou"
+        # end
+      end
     end
   end
 
@@ -150,14 +158,19 @@ class AntColonyMethods
         j = ant.ant_col + c - lineofsight
         if (i >= 0 and j >= 0) and (i < grid.grid_maxr and j < grid.grid_maxc)
           cell_count += 1
+          # File.open('log.txt','a') do |s|
+          #   s.puts "hi"
+          # end
           if grid.grid_field[i * grid.grid_maxr + j] != " "
-            dead_count += 1 if grid.grid_field[i * grid.grid_maxr + j].info_color == grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_color
+            dead_count += 1 if grid.grid_field[i * grid.grid_maxr + j].info_color == ant.ant_info.info_color
+
           end
         end
       end
     end
     prob = rand(0.01...1.00)
     if prob < dead_count/cell_count
+      grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col] = ant.ant_info
       grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy = 0
       # NOTE: for test purposes
       # File.open('log.txt','a') do |s|
