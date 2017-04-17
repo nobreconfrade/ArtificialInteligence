@@ -1,0 +1,44 @@
+INTRODUCAO
+
+O problema de \textit{ant clustering} (REFERENCIA) é abordado para agrupamentos
+de informações com algo em comum. Nesta nova abordagem do problema, uma nova
+problematica é proposta: As formigas mortas são substituidas por informações,
+estas informações possuem valores que, no caso, são dois valores numéricos. A
+ideia é uma substituição de informações homogeneas (formigas mortas) por informações
+mais proximas da realidade, com variaveis multivaloradas.
+
+PROGRAMA:
+
+Informação:
+Para acomodar as novas informações, foi criada uma classe 'info'. Nesta classe
+estão guardadas informações como valor 1, valor 2, cor do objeto em hexadecimal
+para representação na tela e linha e coluna em que a informação foi inserida.
+
+Grid:
+Para a grid, algumas mudanças foram feitas em relação ao ultimo programa. Todas
+as informações da grid são agora salvas em uma classe específica para ela, a
+classe 'grid'. Informações como tamanho maximo de coluna, linha, número de
+interações e também número de agentes presentes no teste.
+
+Caminhada:
+Uma das principais mudanças sobre os agentes foram os metodos utilizados para
+a caminhada do agente. Neste programa, diferentemente do outro o agente não é
+mostrado na tela a cada aplicação. Esta decisão foi tomada com base na aplicabilidade
+do novo programa onde o foco é no resultado final e não no processo.
+
+Os agentes atualmente não andam pela grid, o que acontece é que a cada interação
+o valor de linha e coluna do agente é alterado para a nova posição. Este metodo
+foi adotado para que fosse possível os agentes andarem na mesma posição carregando
+a informação. Tendo em vista o resultado ótimo.
+
+Pegar e largar:
+O metodo de pegar e largar das informações foram alterados para se adequar a nova
+problematica. Os metodos ainda são semelhantes com a mudança de probabilidade,
+porém agora é levado em consideração os valores colocados a partir da base de dados.
+
+A formula utilizada considera a cor das informações, sendo que estas são baseadas
+no valor da informação. Quanto maior a distancia euclidiana, as cores se diferenciam
+assim mudando o valor da informação.
+
+EXPERIMENTO:
+O experimento tem como entradas:

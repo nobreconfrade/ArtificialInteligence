@@ -1,5 +1,6 @@
 class Info
-  attr_accessor :info_value1, :info_value2, :info_color, :info_row, :info_col
+  attr_accessor :info_value1, :info_value2, :info_color, :info_row, :info_col, :info_busy
+
 # => TODO: think about the info class
   def initialize(value1, value2, color)
     @info_value1 = value1

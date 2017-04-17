@@ -16,11 +16,11 @@ class AntColony < AntColonyMethods
   maxc = 40
   maxr = 40
   aliveants = 20
-  interactions = 10000
+  interactions = 1000000
   lineofsight = 1
   show = 0
 
-  File.open('input2.txt','r') do |f|
+  File.open('input.txt','r') do |f|
     f.each_line do |line|
       content  = line.split("/")
       infos.push Info.new(content[0],content[1],content[2])
@@ -67,8 +67,9 @@ class AntColony < AntColonyMethods
         # TODO: I expect this to work, if this doesn't work try making two 'if'.
         # => The first one check if is '!=' from " " and the sencond if is busy or not.
         if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col] != " "
-          if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy == 0
-            methods.capture_ants(grid,lineofsight,ant)
+          # if grid.grid_field[ant.ant_row * grid.grid_maxr + ant.ant_col].info_busy == 0
+          unless !ant.ant_info.nil?
+            methods.capture_ants(grid,lineofsight,ant,count,interactions)
             methods.walk_ants(ant,grid)
           else
             methods.release_ants(grid,lineofsight,ant)

@@ -1,5 +1,5 @@
 class Ant
-  attr_accessor :ant_row, :ant_col, :ant_working, :ant_direction, :ant_steps
+  attr_accessor :ant_row, :ant_col, :ant_working, :ant_direction, :ant_steps, :ant_info
   def initialize(positionr, positionc, working)
     @ant_row = positionr
     @ant_col = positionc
