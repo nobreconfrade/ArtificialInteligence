@@ -11,7 +11,7 @@ set width: size, height: size
 set resizable: false
 
 i = 0
-j = 0 
+j = 0
 File.open('mapa.txt','r') do |f|
   f.each_char do |c|
     if c != " " and c != "\n"
