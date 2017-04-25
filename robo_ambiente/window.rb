@@ -43,8 +43,6 @@ for i in 0...42 do
   end
 end
 
-foo = Bccu.new(array)
-
 
 
 # update do
