@@ -1,4 +1,5 @@
 require 'ruby2d'
+require_relative 'bccu.rb'
 
 size = 640
 offset_x = 0.0
@@ -42,6 +43,10 @@ for i in 0...42 do
   end
 end
 
+foo = Bccu.new(array)
+
+
+
 # update do
 #   if tick % 60 == 0
 #     # do something
@@ -49,4 +54,4 @@ end
 #   tick += 1
 # end
 #
-show
+# show
