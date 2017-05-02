@@ -1,11 +1,10 @@
 class Bcu
-  def initialize 
-    @exparray = {}
+  def initialize
+    @exparray = []
     @distarray = Array.new(42**2,9999999)
 
   end
-  def calc
-    print @distarray
+  def solver
   end
 
   # def initialize(array)

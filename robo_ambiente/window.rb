@@ -1,8 +1,10 @@
 require 'ruby2d'
 require_relative 'bcu.rb'
+require_relative 'bfs.rb'
 
 
 bcu = Bcu.new
+bfs = Bfs.new
 array = Array.new
 
 size = 640
@@ -68,10 +70,10 @@ for i in 0...42 do
       Square.new(offset_x,offset_y,size/42,'white')
     end
     if i == initial_x and j == initial_y
-      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2,offset_y+(size/42)/2,'white')
+      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2,offset_y+(size/42),'white')
     end
     if i == final_x and j == final_y
-      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2,offset_y+(size/42)/2,'black')
+      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2,offset_y+(size/42),'black')
     end
     if j == 41
       offset_y += size/42
@@ -82,9 +84,15 @@ for i in 0...42 do
   end
 end
 
+cost,expnodes= bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
+
+puts cost
+puts expnodes
+
 update do
   if tick % 60 == 0
     if tick < 120
+
     else
     end
   end
