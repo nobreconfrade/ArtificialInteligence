@@ -17,7 +17,7 @@ final_y = 0
 tick = 0
 
 set title: "Robô busca cega"
-set width: size, height: size-size/42
+set width: size-size/42, height: size-size/42
 set resizable: false
 
 
@@ -25,7 +25,18 @@ set resizable: false
 File.open('mapa.txt','r') do |f|
   f.each_char do |c|
     if c != " " and c != "\n"
-      array.push(c.to_i)
+      if c.to_i == 0
+        array.push(1)
+      end
+      if c.to_i == 1
+        array.push(5)
+      end
+      if c.to_i == 2
+        array.push(10)
+      end
+      if c.to_i == 3
+        array.push(15)
+      end
     end
   end
 end
@@ -40,10 +51,10 @@ File.open('input.txt','r') do |f|
       initial_y = content[1].to_i
     end
     if content[0] == "fx"
-      final_x = content[1].to_i.to_i
+      final_x = content[1].to_i
     end
     if content[0] == "fy"
-      final_y = content[1].to_i.to_i
+      final_y = content[1].to_i
     end
   end
 end
@@ -53,27 +64,28 @@ end
 # puts final_x
 # puts final_y
 
+
 j = 0
 i = 0
 
 for i in 0...42 do
   for j in 0...42 do
-    if array[i*42+j] == 0
+    if array[i*42+j] == 1
       Square.new(offset_x,offset_y,size/42,'green')
-    elsif array[i*42+j] == 1
+    elsif array[i*42+j] == 5
       Square.new(offset_x,offset_y,size/42,'brown')
-    elsif array[i*42+j] == 2
+    elsif array[i*42+j] == 10
       Square.new(offset_x,offset_y,size/42,'blue')
-    elsif array[i*42+j] == 3
+    elsif array[i*42+j] == 15
       Square.new(offset_x,offset_y,size/42,'red')
     else
       Square.new(offset_x,offset_y,size/42,'white')
     end
     if i == initial_x and j == initial_y
-      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2,offset_y+(size/42),'white')
+      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2+0.5,offset_y+(size/42),'white')
     end
     if i == final_x and j == final_y
-      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2,offset_y+(size/42),'black')
+      Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2+0.5,offset_y+(size/42),'black')
     end
     if j == 41
       offset_y += size/42
@@ -84,14 +96,57 @@ for i in 0...42 do
   end
 end
 
-cost,expnodes= bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
+offset_x = 0.0
+offset_y = 0.0
+cost = 0
+visitednodes = []
+expnodes = []
+cost,visitednodes,expnodes= bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
 
-puts cost
-puts expnodes
 
 update do
   if tick % 60 == 0
-    if tick < 120
+    if tick == 120
+
+################################# NOTE: Select algorith: #################################
+
+      for i in 0...42 do
+        for j in 0...42 do
+          if array[i*42+j] == 1
+            Square.new(offset_x,offset_y,size/42,'green')
+          elsif array[i*42+j] == 5
+            Square.new(offset_x,offset_y,size/42,'brown')
+          elsif array[i*42+j] == 10
+            Square.new(offset_x,offset_y,size/42,'blue')
+          elsif array[i*42+j] == 15
+            Square.new(offset_x,offset_y,size/42,'red')
+          else
+            Square.new(offset_x,offset_y,size/42,'white')
+          end
+          if expnodes.include?([i,j])
+            # Square.new(offset_x,offset_y,size/42,'gray')
+          end
+          if visitednodes.include?([i,j])
+            Square.new(offset_x,offset_y,size/42,[0.1, 0.0, 0.0, 0.5])
+          end
+          if i == initial_x and j == initial_y
+            Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2+0.5,offset_y+(size/42),'white')
+          end
+          if i == final_x and j == final_y
+            Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2+0.5,offset_y+(size/42),'black')
+          end
+          if j == 41
+            offset_y += size/42
+            offset_x = 0
+            next
+          end
+          offset_x += size/42
+        end
+      end
+
+      # puts cost
+      # print visitednodes
+      # puts expnodes
 
     else
     end
@@ -99,5 +154,6 @@ update do
   # puts tick
   tick += 1
 end
+
 
 show
