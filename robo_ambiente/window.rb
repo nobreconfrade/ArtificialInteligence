@@ -15,10 +15,10 @@ initial_y = 0
 final_x = 0
 final_y = 0
 tick = 0
-
 set title: "Robô busca cega"
 set width: size-size/42, height: size-size/42
 set resizable: false
+
 
 
 
@@ -102,6 +102,7 @@ cost = 0
 visitednodes = []
 expnodes = []
 finalexpnodes = []
+################################# NOTE: Select algorith: #################################
 cost,visitednodes,expnodes= bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
 expnodes.each do |c|
   unless finalexpnodes.include?([c[0],c[1]])
@@ -112,9 +113,8 @@ end
 
 update do
   if tick % 60 == 0
-    if tick == 120
+    if tick == 240
 
-################################# NOTE: Select algorith: #################################
 
       for i in 0...42 do
         for j in 0...42 do
@@ -133,7 +133,7 @@ update do
             Square.new(offset_x,offset_y,size/42,[0.0, 0.0, 0.0, 0.5])
           end
           if visitednodes.include?([i,j])
-            Square.new(offset_x,offset_y,size/42,[1.0, 0.64, 0.0, 0.7])
+            Square.new(offset_x,offset_y,size/42,[1.0, 0.64, 0.0, 0.5])
           end
           if i == initial_x and j == initial_y
             Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2+0.5,offset_y+(size/42),'white')
