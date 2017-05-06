@@ -78,7 +78,7 @@ class Bfs
                 @finalarray.push([c[0],c[1]])
               end
             end
-            # print @finalarray
+            # print @closed
             return count,@finalarray,@closed
           end
         end

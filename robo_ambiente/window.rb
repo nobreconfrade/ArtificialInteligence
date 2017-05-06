@@ -101,7 +101,13 @@ offset_y = 0.0
 cost = 0
 visitednodes = []
 expnodes = []
+finalexpnodes = []
 cost,visitednodes,expnodes= bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
+expnodes.each do |c|
+  unless finalexpnodes.include?([c[0],c[1]])
+    finalexpnodes.push([c[0],c[1]])
+  end
+end
 
 
 update do
@@ -123,11 +129,11 @@ update do
           else
             Square.new(offset_x,offset_y,size/42,'white')
           end
-          if expnodes.include?([i,j])
-            # Square.new(offset_x,offset_y,size/42,'gray')
+          if finalexpnodes.include?([i,j])
+            Square.new(offset_x,offset_y,size/42,[0.0, 0.0, 0.0, 0.5])
           end
           if visitednodes.include?([i,j])
-            Square.new(offset_x,offset_y,size/42,[0.1, 0.0, 0.0, 0.5])
+            Square.new(offset_x,offset_y,size/42,[1.0, 0.64, 0.0, 0.7])
           end
           if i == initial_x and j == initial_y
             Triangle.new(offset_x,offset_y,offset_x+size/42,offset_y,offset_x+(size/42)/2+0.5,offset_y+(size/42),'white')
@@ -144,9 +150,9 @@ update do
         end
       end
 
-      # puts cost
-      # print visitednodes
-      # puts expnodes
+      puts "Custo: #{cost}"
+      puts "Nós visitados no caminho: #{visitednodes.length}"
+      puts "Nós visitados no total: #{finalexpnodes.length}"
 
     else
     end
