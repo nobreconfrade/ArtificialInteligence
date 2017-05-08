@@ -18,11 +18,11 @@ class Bcu
 
     while @pq.any?
       @pq = @pq.sort_by {|key1,key2,val| val }
-      if help < 10
-        print "#{@pq}\n"
-        puts "-----------------------------------"
-        help += 1
-      end
+      # if help < 10
+      #   print "#{@pq}\n"
+      #   puts "-----------------------------------"
+      #   help += 1
+      # end
       @e = @pq.shift
 
       if @e[0] == final_x and @e[1] == final_y
