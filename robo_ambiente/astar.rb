@@ -5,8 +5,9 @@ class Astar
     @dist[initial_x*42+initial_y] = 0
     @prev = []
     @pq = []
-    @pq.push([initial_x,initial_y,0])
+    @pq.push([initial_x,initial_y,0,0])
     @prev[initial_x*42+initial_y] = [-1,-1]
+    @peso = 1
 
     help = 0
     x = final_x
@@ -16,7 +17,7 @@ class Astar
 
 
     while @pq.any?
-      @pq = @pq.sort_by {|key1,key2,val| val }
+      @pq = @pq.sort_by {|key1,key2,key3,val| val }
       # if help < 10
       #   print "#{@pq}\n"
       #   puts "-----------------------------------"
@@ -39,7 +40,7 @@ class Astar
         if @dist[(@e[0] - 1) * 42 + @e[1]] > @dist[@e[0] * 42 + @e[1]] + @array[(@e[0] - 1) * 42 + @e[1]]
           @dist[(@e[0] - 1) * 42 + @e[1]] = @dist[@e[0] * 42 + @e[1]] + @array[(@e[0] - 1) * 42 + @e[1]]
           @prev[(@e[0] - 1) * 42 + @e[1]] = [@e[0],@e[1]]
-          @pq.push([@e[0] - 1, @e[1],@dist[(@e[0] - 1) * 42 + @e[1]]])
+          @pq.push([@e[0] - 1, @e[1],@dist[(@e[0] - 1) * 42 + @e[1]],@dist[(@e[0] - 1) * 42 + @e[1]] + ((@e[0] - 1 - final_x).abs + (@e[1] - final_y).abs) * @peso])
           expnodes.push([@e[0] - 1, @e[1]])
         end
       end
@@ -48,8 +49,8 @@ class Astar
         if @dist[@e[0] * 42 + @e[1] + 1] > @dist[@e[0] * 42 + @e[1]] + @array[@e[0] * 42 + @e[1] + 1]
           @dist[@e[0] * 42 + @e[1] + 1] = @dist[@e[0] * 42 + @e[1]] + @array[@e[0] * 42 + @e[1] + 1]
           @prev[@e[0] * 42 + @e[1] + 1] = [@e[0],@e[1]]
-          @pq.push([@e[0], @e[1] + 1,@dist[@e[0] * 42 + @e[1] + 1]])
-          expnodes.push([@e[0] - 1, @e[1]])
+          @pq.push([@e[0], @e[1] + 1,@dist[@e[0] * 42 + @e[1] + 1],@dist[(@e[0]) * 42 + @e[1] + 1] + ((@e[0] - final_x).abs + (@e[1] + 1 - final_y).abs) * @peso])
+          expnodes.push([@e[0], @e[1] + 1])
         end
       end
 
@@ -71,8 +72,8 @@ class Astar
         if @dist[(@e[0] + 1) * 42 + @e[1]] > @dist[@e[0] * 42 + @e[1]] + @array[(@e[0] + 1) * 42 + @e[1]]
           @dist[(@e[0] + 1) * 42 + @e[1]] = @dist[@e[0] * 42 + @e[1]] + @array[(@e[0] + 1) * 42 + @e[1]]
           @prev[(@e[0] + 1) * 42 + @e[1]] = [@e[0],@e[1]]
-          @pq.push([@e[0] + 1, @e[1],@dist[(@e[0] + 1) * 42 + @e[1]]])
-          expnodes.push([@e[0] - 1, @e[1]])
+          @pq.push([@e[0] + 1, @e[1],@dist[(@e[0] + 1) * 42 + @e[1]],@dist[(@e[0] + 1) * 42 + @e[1]] + ((@e[0]+1 - final_x).abs + (@e[1] - final_y).abs) * @peso])
+          expnodes.push([@e[0] + 1, @e[1]])
         end
       end
 
@@ -80,8 +81,8 @@ class Astar
         if @dist[@e[0] * 42 + @e[1] - 1] > @dist[@e[0] * 42 + @e[1]] + @array[@e[0] * 42 + @e[1] - 1]
           @dist[@e[0] * 42 + @e[1] - 1] = @dist[@e[0] * 42 + @e[1]] + @array[@e[0] * 42 + @e[1] - 1]
           @prev[@e[0] * 42 + @e[1] - 1] = [@e[0],@e[1]]
-          @pq.push([@e[0], @e[1] - 1,@dist[@e[0] * 42 + @e[1] - 1]])
-          expnodes.push([@e[0] - 1, @e[1]])
+          @pq.push([@e[0], @e[1] - 1,@dist[@e[0] * 42 + @e[1] - 1],@dist[@e[0] * 42 + @e[1] - 1] + ((@e[0] - final_x).abs + (@e[1] - 1 - final_y).abs) * @peso])
+          expnodes.push([@e[0], @e[1] - 1])
         end
       end
 

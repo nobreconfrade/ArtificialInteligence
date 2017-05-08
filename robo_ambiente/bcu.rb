@@ -18,11 +18,11 @@ class Bcu
 
     while @pq.any?
       @pq = @pq.sort_by {|key1,key2,val| val }
-      # if help < 10
-      #   print "#{@pq}\n"
-      #   puts "-----------------------------------"
-      #   help += 1
-      # end
+      if help < 10
+        print "#{@pq}\n"
+        puts "-----------------------------------"
+        help += 1
+      end
       @e = @pq.shift
 
       if @e[0] == final_x and @e[1] == final_y
@@ -50,7 +50,7 @@ class Bcu
           @dist[@e[0] * 42 + @e[1] + 1] = @dist[@e[0] * 42 + @e[1]] + @array[@e[0] * 42 + @e[1] + 1]
           @prev[@e[0] * 42 + @e[1] + 1] = [@e[0],@e[1]]
           @pq.push([@e[0], @e[1] + 1,@dist[@e[0] * 42 + @e[1] + 1]])
-          expnodes.push([@e[0] - 1, @e[1]])
+          expnodes.push([@e[0], @e[1] + 1])
         end
       end
 
@@ -73,7 +73,7 @@ class Bcu
           @dist[(@e[0] + 1) * 42 + @e[1]] = @dist[@e[0] * 42 + @e[1]] + @array[(@e[0] + 1) * 42 + @e[1]]
           @prev[(@e[0] + 1) * 42 + @e[1]] = [@e[0],@e[1]]
           @pq.push([@e[0] + 1, @e[1],@dist[(@e[0] + 1) * 42 + @e[1]]])
-          expnodes.push([@e[0] - 1, @e[1]])
+          expnodes.push([@e[0] + 1, @e[1]])
         end
       end
 
@@ -82,7 +82,7 @@ class Bcu
           @dist[@e[0] * 42 + @e[1] - 1] = @dist[@e[0] * 42 + @e[1]] + @array[@e[0] * 42 + @e[1] - 1]
           @prev[@e[0] * 42 + @e[1] - 1] = [@e[0],@e[1]]
           @pq.push([@e[0], @e[1] - 1,@dist[@e[0] * 42 + @e[1] - 1]])
-          expnodes.push([@e[0] - 1, @e[1]])
+          expnodes.push([@e[0], @e[1] - 1])
         end
       end
 
