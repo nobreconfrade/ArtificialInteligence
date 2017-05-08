@@ -1,10 +1,12 @@
 require 'ruby2d'
 require_relative 'bcu.rb'
 require_relative 'bfs.rb'
+require_relative 'astar.rb'
 
 
 bcu = Bcu.new
 bfs = Bfs.new
+astar = Astar.new
 array = Array.new
 
 size = 640
@@ -104,7 +106,10 @@ expnodes = []
 finalexpnodes = []
 ################################# NOTE: Select algorith: #################################
 # cost,visitednodes,expnodes = bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
-cost,visitednodes,expnodes = bcu.solver(initial_x,initial_y,array,final_x,final_y)
+# cost,visitednodes,expnodes = bcu.solver(initial_x,initial_y,array,final_x,final_y)
+cost,visitednodes,expnodes = astar.solver(initial_x,initial_y,array,final_x,final_y)
+
+
 expnodes.each do |c|
   unless finalexpnodes.include?([c[0],c[1]])
     finalexpnodes.push([c[0],c[1]])
@@ -154,7 +159,7 @@ update do
       puts "Custo: #{cost}"
       puts "Nós visitados no caminho: #{visitednodes.length}"
       puts "Nós visitados no total: #{finalexpnodes.length}"
-      
+
     else
     end
   end

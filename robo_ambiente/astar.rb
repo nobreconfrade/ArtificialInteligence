@@ -1,5 +1,4 @@
-# https://github.com/brianstorti/ruby-graph-algorithms/blob/master/dijkstra/dijkstra.rb
-class Bcu
+class Astar
   def solver(initial_x,initial_y,array,final_x,final_y)
     @array = array
     @dist = Array.new(@array.length,Float::INFINITY)

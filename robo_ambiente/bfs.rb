@@ -2,12 +2,10 @@ require_relative 'magic.rb'
 class Bfs
   def solver(pos_x,pos_y,array,final_x,final_y,initial_cost)
     @open = Array.new
-    # @open.push(Magic.new(pos_x,pos_y,nil))
     @open.push([pos_x,pos_y,nil,nil])
     @closed = Array.new
     @array = array
     @prevlist = Array.new
-    # @prevlist.push(Magic.new(pos_x,pos_y,nil))
     @prevlist.push([pos_x,pos_y,nil,nil])
 
     count = 0
@@ -19,10 +17,6 @@ class Bfs
         @closed.push([@e[0],@e[1]])
       end
       @open.delete_at(0)
-      # if @e.pos_x == final_x and @e.pos_y == final_y
-      # if @e.pos_x - 1 >= 0
-
-#####################NOTE: TEST###########################
       if @e[0] - 1 >= 0
         @el = [@e[0] - 1,@e[1],@e[0],@e[1]]
         unless @closed.include?([@el[0],@el[1]]) or @open.include?(@el)
@@ -109,38 +103,6 @@ class Bfs
 
         end
       end
-
-
-##########################################################
-      # if @e.pos_x - 1 >= 0
-      #   @el = Magic.new(@e.pos_x-1,@e.pos_y,@e)
-      #   unless @closed.include?(@el) and @open.include?(@el)
-      #     @open.push(@el)
-      #   end
-      # end
-      # if @e.pos_y + 1 < 42
-      #   @el = Magic.new(@e.pos_x,@e.pos_y+1,@e.pos_x*42+@e.pos_y)
-      #   unless @closed.include?(@el) and @open.include?(@el)
-      #     # puts "LISTEN!1"
-      #     @open.push(@el)
-      #   end
-      # end
-      # if @e.pos_x + 1 < 42
-      #   @el = Magic.new(@e.pos_x+1,@e.pos_y,@e.pos_x*42+@e.pos_y)
-      #   unless @closed.include?(@el) and @open.include?(@el)
-      #     # puts "LISTEN!2"
-      #     @open.push(@el)
-      #   end
-      # end
-      # if @e.pos_y - 1 >= 0
-      #   @el = Magic.new(@e.pos_x,@e.pos_y-1,@e.pos_x*42+@e.pos_y)
-      #   unless @closed.include?(@el) and @open.include?(@el)
-      #     # puts "LISTEN!3"
-      #     @open.push(@el)
-      #   end
-      # end
     end
-
-
   end
 end
