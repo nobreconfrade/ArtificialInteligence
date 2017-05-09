@@ -106,8 +106,8 @@ expnodes = []
 finalexpnodes = []
 ################################# NOTE: Select algorith: #################################
 # cost,visitednodes,expnodes = bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
-cost,visitednodes,expnodes = bcu.solver(initial_x,initial_y,array,final_x,final_y)
-# cost,visitednodes,expnodes = astar.solver(initial_x,initial_y,array,final_x,final_y)
+# cost,visitednodes,expnodes = bcu.solver(initial_x,initial_y,array,final_x,final_y)
+cost,visitednodes,expnodes = astar.solver(initial_x,initial_y,array,final_x,final_y)
 
 
 expnodes.each do |c|
