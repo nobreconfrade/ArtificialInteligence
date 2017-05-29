@@ -1,0 +1,15 @@
+Vantagens Computação Evolutiva:
+ - Não precisa de conhecimento matemático;
+ - Da uma solução PROXIMA da otima em um tempo viável;
+Desvantagens:
+ - Pouco embasamento teórico;
+ - Ajuste de parametros;
+ - "no free lunch"?
+
+Darwin: Os filhos são parecidos com os pais mas não iguais;
+Algoritmos genetico é muito probabilistico;
+No simulated annealing eu gero um INDIVIDUO aleatório e testo ele, no genetico eu tenho uma população com gerações que são iterações;
+Iteração seguida de interação;
+a população permite busca pararela;
+Pararelismo explicito;
+Pararelismo implicito;
