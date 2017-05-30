@@ -1,0 +1,9 @@
+- Ilustrar os jogos de tabuleiro;
+- Falar sobre a complexidade para resolver esses caras (árvore de decisão);
+- Referencias sobre os assuntos, discuções tecnicas (AlphaGO);
+- Tem que envolver um ambiente estratégico;
+- FOCO: Explicar os algoritmos pesquisados:
+  *MaxMin;
+  *AlphaGO;
+- Ferramentas que fazem uso desses algoritmos, principalmente para treino ou coisas nesse sentido
+- Norvick (?)
