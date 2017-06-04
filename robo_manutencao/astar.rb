@@ -7,7 +7,7 @@ class Astar
     @pq = []
     @pq.push([initial_x,initial_y,0,0])
     @prev[initial_x*42+initial_y] = [-1,-1]
-    @peso = 3
+    @peso = 1
 
     help = 0
     x = final_x

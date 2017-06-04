@@ -1,11 +1,7 @@
 require 'ruby2d'
-require_relative 'bcu.rb'
-require_relative 'bfs.rb'
 require_relative 'astar.rb'
 
 
-bcu = Bcu.new
-bfs = Bfs.new
 astar = Astar.new
 array = Array.new
 
@@ -17,11 +13,9 @@ initial_y = 0
 final_x = 0
 final_y = 0
 tick = 0
-set title: "Robô busca cega"
+set title: "Robô de manutenção"
 set width: size-size/42, height: size-size/42
 set resizable: false
-
-
 
 
 File.open('mapa.txt','r') do |f|
@@ -42,6 +36,8 @@ File.open('mapa.txt','r') do |f|
     end
   end
 end
+
+
 
 File.open('input.txt','r') do |f|
   f.each_line do |c|
@@ -104,9 +100,8 @@ cost = 0
 visitednodes = []
 expnodes = []
 finalexpnodes = []
+
 ################################# NOTE: Select algorith: #################################
-# cost,visitednodes,expnodes = bfs.solver(initial_x,initial_y,array,final_x,final_y,array[initial_x,initial_y][0])
-# cost,visitednodes,expnodes = bcu.solver(initial_x,initial_y,array,final_x,final_y)
 cost,visitednodes,expnodes = astar.solver(initial_x,initial_y,array,final_x,final_y)
 
 
